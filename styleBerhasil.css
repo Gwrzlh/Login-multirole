@@ -1,11 +1,11 @@
-/* Mengatur margin dan padding ke 0 untuk semua elemen */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Menetapkan font dasar untuk body */
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #db4a2b;
@@ -45,74 +45,42 @@ nav a {
 
 .wrap ul {
     display: flex;
-    gap: 20px; /* Jarak antar item di dalam <ul> */
+    gap: 20px; 
 }
-
-.menu-btn {
-    font-size: 30px;
-    cursor: pointer;
-    padding: 10px 20px;
-    background-color: #333;
-    color: #fff;
-    display: none; /* Secara default tombol hamburger disembunyikan */
-}
-
-/* Menata sidebar */
 .sidebar {
-    height: 100%;
-    width: 0; /* Sidebar disembunyikan saat awal */
+    display: none; /* Sidebar disembunyikan secara default */
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #333;
-    padding-top: 20px;
-    color: white;
-    overflow-x: hidden;
-    transition: 0.3s;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar .login-email {
+    width: 250px;
+    height: 100%;
+    background: #f4f4f4;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
     padding: 20px;
-    text-align: center;
+    overflow-y: auto;
 }
 
-.sidebar .btn {
-    background-color: #f44336;
+.sidebar.active {
+    display: block; /* Sidebar muncul jika class 'active' ditambahkan */
+}
+
+.ttp {
+    display: block;
+    text-align: right;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+.but {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #ff4747;
     color: white;
     border: none;
-    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
 }
 
-.sidebar .btn:hover {
-    background-color: #d32f2f;
-}
-
-/* Menambahkan kelas .active untuk menampilkan sidebar */
-.sidebar.active {
-    width: 250px; /* Lebar sidebar saat ditampilkan */
-}
-
-/* Konten utama */
-.content {
-    margin-left: 0; /* Menyesuaikan margin saat sidebar tersembunyi */
-    padding: 20px;
-}
-
-/* Responsif: Menampilkan tombol hamburger pada layar kecil */
-@media screen and (max-width: 768px) {
-    .menu-btn {
-        display: block; /* Tombol hamburger tampil pada layar kecil */
-    }
-
-    .content {
-        margin-left: 0; /* Mengatur margin konten */
-    }
-
-    /* Memperbaiki ukuran sidebar untuk perangkat kecil */
-    .sidebar.active {
-        width: 200px;
-    }
-}
