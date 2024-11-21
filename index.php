@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             if($row['role'] == 'admin'){
                 header("Location: admin.php");
             }else{
-                header("Location: user.php");
+                header("Location: berhasil.php");
             }
             
             exit();

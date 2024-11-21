@@ -12,10 +12,9 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['username'];
         $email = $_POST['email'];
-        $password = $_POST['password']; // Hash the input password using SHA-256
-        $cpassword = $_POST['cpassword']; // Hash the input confirm password using SHA-256
+        $password = $_POST['password']; 
+        $cpassword = $_POST['cpassword']; 
 
-        // Cek jika password dan konfirmasi password cocok
         if ($password == $cpassword) {
 
             $hashpass = hash('sha256', $_POST['password']);
