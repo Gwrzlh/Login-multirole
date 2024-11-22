@@ -20,7 +20,7 @@ if (!isset($_SESSION['username'])) {
 </head>
 <body>
 <div class="sidebar" id="sidebar">
-        <a href="#" onclick="close()" class="ttp">Keluar</a>
+      <button onclick="close()" class="ttp"> tutup</button>
         <div class="log">
             <form action="logout.php" method="post" class="logout">
                 <button type="submit" class="but" id="but">Logout</button>
@@ -46,9 +46,11 @@ if (!isset($_SESSION['username'])) {
             var sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }function close() {
-            var sidebar = document.getElementById('sidebar');
-            sidebar.classList.remove('active')
-        }
+             var sidebar = document.getElementById('sidebar');
+             if (sidebar.classList.contains('active')) {
+             sidebar.classList.remove('active');
+         }
+     }
     </script>
 </body>
 </html>

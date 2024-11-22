@@ -48,13 +48,13 @@ nav a {
     gap: 20px; 
 }
 .sidebar {
-    display: none; /* Sidebar disembunyikan secara default */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 250px;
     height: 100%;
-    background: #f4f4f4;
+    background: #B59F78;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     padding: 20px;
@@ -62,7 +62,7 @@ nav a {
 }
 
 .sidebar.active {
-    display: block; /* Sidebar muncul jika class 'active' ditambahkan */
+    display: block; 
 }
 
 .ttp {
