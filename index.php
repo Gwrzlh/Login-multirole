@@ -1,14 +1,14 @@
 <?php
 include 'config.php';
 session_start();
- 
+
 if (isset($_SESSION['username'])) {
-    header("Location: berhasil.php");
+    header("Location: admin.php");
     exit();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = $_POST['email'];
-    $password = hash('sha256', $_POST['password']); // Hash the input password using SHA-25
+    $password = hash('sha256', $_POST['password']); 
      
     if (isset($_POST['submit'])) {
      
@@ -20,20 +20,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $row = mysqli_fetch_assoc($result);
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
-
-            if($row['role'] == 'admin'){
+        
+        if ($_SESSION['role'] === 'admin') {
                 header("Location: admin.php");
-            }else{
+            } else if ($_SESSION['role'] === 'user') {
                 header("Location: berhasil.php");
+            } else {
+                echo "<script>alert('Role tidak valid');</script>";
             }
-            
+            exit();
+        }
+        
             exit();
         }else{
             echo "<script>alert('email atau password yang anda masukkan salah')</script>";
         }
     }
-}
-
 ?>
  
 <!DOCTYPE html>
@@ -51,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             <p class="login-text" style="font-size: 2rem; font-weight: 800;">Login</p>
             <div class="input-group">
                 <input type="email" placeholder="Email" name="email" required>
-                
             </div>
             <div class="input-group">
             <input type="password" placeholder="Password" name="password" required>

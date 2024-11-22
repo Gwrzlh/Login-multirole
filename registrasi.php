@@ -24,7 +24,7 @@
             $result_select = mysqli_query($conn, $select_sql);
 
             if ($result_select && !$result_select->num_rows > 0) {
-                $sql = "INSERT INTO pengguna (username, email, password) VALUES ('$username', '$email', '$hashpass')";
+                $sql = "INSERT INTO pengguna (username, email, password,role) VALUES ('$username', '$email', '$hashpass','user')";
                 $result = mysqli_query($conn, $sql);
 
                 // Pendaftaran berhasil

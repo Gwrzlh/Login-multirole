@@ -1,9 +1,9 @@
 <?php
 session_start();
  
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php");
-    exit(); // Terminate script execution after the redirect
+if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
+    header("Location: admin.php"); // Redirect ke halaman login jika role bukan 'user'
+    exit();
 }
 
 

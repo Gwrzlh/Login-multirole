@@ -25,8 +25,6 @@
             if ($result_select && !$result_select->num_rows > 0) {
                 $sql = "INSERT INTO pengguna (username, email, password,role) VALUES ('$username', '$email', '$hashpass','admin')";
                 $result = mysqli_query($conn, $sql);
-
-                // Pendaftaran berhasil
                 if ($result) {
                     echo "<script>alert('Selamat, pendaftaran berhasil!')</script>";
                     header('Location: index.php');

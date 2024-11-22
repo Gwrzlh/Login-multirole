@@ -1,12 +1,13 @@
 <?php
 include "config.php";   
 session_start();
+
 $sql = "SELECT * FROM buku";
 $query = mysqli_query($conn,$sql);
  
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php");
-    exit(); // Terminate script execution after the redirect
+if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
+    header("Location: berhasil.php");
+    exit();
 }
 
 
@@ -51,7 +52,7 @@ if (!isset($_SESSION['username'])) {
      <div class="div" class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nab-item">
-                <a href="#" class="nav-link">Create Buku</a>
+                <a href="createBuku.php" class="nav-link">Create Buku</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">Akun User</a>
@@ -69,6 +70,7 @@ if (!isset($_SESSION['username'])) {
           <th>Penerbit</th>
           <th>Pengarang</th>
           <th>tahun terbit</th>
+          <th>action</th>
         </tr>
     </thead>
     <tbody>
@@ -77,11 +79,15 @@ if (!isset($_SESSION['username'])) {
         while($select = mysqli_fetch_assoc($query)){
       ?>
       <tr>
-        <td><?php echo $no['Id'] ?></td>
-        <td><?php echo $select['judul']?></td>
+        <td class="text-center"><?php echo $select['id'] ?></td>
+        <td><?php echo $select['Judul']?></td>
         <td><?php echo $select['penerbit']?></td>
         <td><?php echo $select['pengarang']?></td>
         <td><?php echo $select['tahun']?></td>
+        <td class="text-center">
+            <a href="createBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
+           <a href="createBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
+        </td>
        </tr>
        <?php 
     }  
