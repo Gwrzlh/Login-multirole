@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $_SESSION['role'] = $row['role'];
         
         if ($_SESSION['role'] === 'admin') {
-                header("Location: admin.php");
+                header("Location: adminPage/admin.php");
             } else if ($_SESSION['role'] === 'user') {
-                header("Location: berhasil.php");
+                header("Location: userPage/berhasil.php");
             } else {
                 echo "<script>alert('Role tidak valid');</script>";
             }

@@ -1,5 +1,5 @@
 <?php
-include "config.php";   
+include "../config.php";   
 session_start();
 
 $sql = "SELECT * FROM buku";
@@ -51,7 +51,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
         </form>
      <div class="div" class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nab-item">
+            <li class="nav-item">
                 <a href="createBuku.php" class="nav-link">Create Buku</a>
             </li>
             <li class="nav-item">
@@ -61,16 +61,6 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
      </div>
     </div>
 </nav>
-<p>sadad
-
-</p>
-<h1>asdad
-    assdasd
-    a
-</h1>
-<h2>asdadadad
-    a
-</h2>
 <div class="container mt-4">
 <table class="table table-striped table-bordered">
        <thead class="thead-dark">
@@ -96,10 +86,10 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
         <td><?php echo $select['pengarang']?></td>
         <td><?php echo $select['tahun']?></td>
         <td>
-           <img src="<?php echo "properti/".$select['cover']; ?>" alt="cover" class="d-flex">
+           <img src="<?php echo "../properti/".$select['cover']; ?>" alt="cover" class="d-flex">
         </td>
         <td class="text-center">
-            <a href="createBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
+            <a href="deletebuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Hapus</a>
            <a href="createBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
         </td>
        </tr>

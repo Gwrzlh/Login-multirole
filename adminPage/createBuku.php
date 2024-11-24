@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "../config.php";
 
 
 if(isset($_POST['submit'])){
@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
 
 if(in_array($ekstansi,$boleh) === true){
    if($size < 1044070){
-      move_uploaded_file($file_temp, 'properti/'.$picname);
+      move_uploaded_file($file_temp, '../properti/'.$picname);
       $sql = "INSERT INTO buku(judul,penerbit,pengarang,tahun,cover) VALUES('$judul','$penerbit','$pengarang','$tahun','$picname')";
       $query = mysqli_query($conn,$sql);
       if($query){
