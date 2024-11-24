@@ -71,6 +71,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
           <th>Pengarang</th>
           <th>tahun terbit</th>
           <th>action</th>
+          <th>cover</th>
         </tr>
     </thead>
     <tbody>
@@ -84,6 +85,9 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
         <td><?php echo $select['penerbit']?></td>
         <td><?php echo $select['pengarang']?></td>
         <td><?php echo $select['tahun']?></td>
+        <td>
+           <img src="<?php echo "properti/".$select['cover']; ?>" alt="cover" class="d-flex">
+        </td>
         <td class="text-center">
             <a href="createBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
            <a href="createBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>

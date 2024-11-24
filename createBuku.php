@@ -3,21 +3,37 @@ include "config.php";
 
 
 if(isset($_POST['submit'])){
-  $judul = $_POST['judul'];
-  $penerbit = $_POST['penerbit'];
-  $pengarang = $_POST['pengarang'];
-  $tahun = $_POST['tahun'];
 
-  $quer = "INSERT INTO buku(judul,penerbit,pengarang,tahun) VALUES('$judul','$penerbit','$pengarang','$tahun')";
-  $sql = mysqli_query($conn,$quer);
+   $judul = $_POST['judul'];
+   $penerbit = $_POST['penerbit'];
+   $pengarang = $_POST['pengarang'];
+   $tahun = $_POST['tahun'];
 
-   header("Location: admin.php");
+   $boleh = array("jpg", "png", "jpeg");
+   $picname = $_FILES['cover']['name'];
+   $x = explode('.', $picname);
+   $ekstansi = strtolower(end($x));
+   $size = $_FILES['cover']['size'];
+   $file_temp= $_FILES['cover']['tmp_name'];
 
+if(in_array($ekstansi,$boleh) === true){
+   if($size < 1044070){
+      move_uploaded_file($file_temp, 'properti/'.$picname);
+      $sql = "INSERT INTO buku(judul,penerbit,pengarang,tahun,cover) VALUES('$judul','$penerbit','$pengarang','$tahun','$picname')";
+      $query = mysqli_query($conn,$sql);
+      if($query){
+         echo "file berhasil diupload";
+      }else{
+         echo "gagal diupload";
+      }
+   }else{
+      echo "ukkuran file terlalu besar";
+   }
+}else{
+   echo "ekstensi tidak sesuai";
 }
-
-
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +45,7 @@ if(isset($_POST['submit'])){
 <body>
 <a href="admin.php" class="btn btn-primary">Beck</a>
 <div class="container mt-3">
-    <form method="post" class="mb-5">
+    <form method="post" enctype="multipart/form-data"  class="mb-5">
         <div class="mb-3">  
            <input type="text" name="judul" class="form-control" placeholder="Masukkan Judul" required>
         </div>
@@ -42,10 +58,10 @@ if(isset($_POST['submit'])){
         <div class="mb-3">
            <input type="number" name="tahun" class="form-control" placeholder="Tahun" required>
         </div>
-        <!-- <div class="mb-3">
-           <input type="file" name="cover" class="form-control" placeholder="Masukkan cover" required>
-        </div> -->
-        <input type="submit" class="btn btn-primary"  name="submit">
+        <div class="mb-3">
+           <input type="file" name="cover" id="cover" class="form-control" placeholder="Masukkan cover" required>
+        </div>
+           <input type="submit" class="btn btn-primary"  name="submit">
     </form>
     </div>
 </body>
