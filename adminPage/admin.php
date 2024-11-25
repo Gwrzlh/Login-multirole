@@ -46,7 +46,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
 <nav class="navbar bg-secondary text-light navbar-expand-lg">
     <div class="container-fluid ">
         <h4 class="mb-0 me-3 "><?php echo $_SESSION['username']; ?></h4>
-        <form action="logout.php" method="post" >
+        <form action="../logout.php" method="post" >
             <button type="submit" class="btn btn-minimal">Logout</button>
         </form>
      <div class="div" class="collapse navbar-collapse" id="navbarNav">
@@ -54,9 +54,9 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
             <li class="nav-item">
                 <a href="createBuku.php" class="nav-link">Create Buku</a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Akun User</a>
-            </li>
+          <li class="nav-item">
+          <a href="buatUser.php" class="nav-link">Akun User</a>
+          </li>
         </ul>
      </div>
     </div>
@@ -70,27 +70,28 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
           <th>Penerbit</th>
           <th>Pengarang</th>
           <th>tahun terbit</th>
-          <th>action</th>
           <th>cover</th>
+          <th>action</th>
         </tr>
     </thead>
     <tbody>
     <?php 
-    
+         $i= 1;   
         while($select = mysqli_fetch_assoc($query)){
       ?>
       <tr>
-        <td class="text-center"><?php echo $select['id'] ?></td>
+        <td class="text-center"><?php echo $i++;   ?></td>
+        <!-- <td class="text-center"><?php echo $select['id'] ?></td> -->
         <td><?php echo $select['Judul']?></td>
         <td><?php echo $select['penerbit']?></td>
         <td><?php echo $select['pengarang']?></td>
         <td><?php echo $select['tahun']?></td>
         <td>
-           <img src="<?php echo "../properti/".$select['cover']; ?>" alt="cover" class="d-flex">
+           <img src="<?php echo "../properti/".$select['cover']; ?>" alt="cover" class="d-flex" height="100px">
         </td>
         <td class="text-center">
             <a href="deletebuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Hapus</a>
-           <a href="createBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
+           <a href="editBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
         </td>
        </tr>
        <?php 

@@ -32,6 +32,7 @@ if(in_array($ekstansi,$boleh) === true){
 }else{
    echo "ekstensi tidak sesuai";
 }
+header("Location: admin.php");
 }
 ?>
 <!DOCTYPE html>
@@ -43,7 +44,6 @@ if(in_array($ekstansi,$boleh) === true){
     <title>Document</title>
 </head>
 <body>
-<a href="admin.php" class="btn btn-primary">Beck</a>
 <div class="container mt-3">
     <form method="post" enctype="multipart/form-data"  class="mb-5">
         <div class="mb-3">  
