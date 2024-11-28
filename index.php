@@ -3,39 +3,36 @@ include 'config.php';
 session_start();
 
 if (isset($_SESSION['username'])) {
-    header("Location: admin.php");
+    header("Location: index.php");
     exit();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = $_POST['email'];
-    $password = hash('sha256', $_POST['password']); 
+    $password =  $_POST['password']; 
      
-    if (isset($_POST['submit'])) {
-     
-        
+    if(isset($_POST['submit'])) {
+
         $sql = "SELECT * FROM pengguna WHERE email='$email' AND password='$password'";
         $result = mysqli_query($conn, $sql);
-     
+
         if ($result && $result->num_rows > 0) {
             $row = mysqli_fetch_assoc($result);
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
-        
+
         if ($_SESSION['role'] === 'admin') {
                 header("Location: adminPage/admin.php");
             } else if ($_SESSION['role'] === 'user') {
                 header("Location: userPage/berhasil.php");
             } else {
                 echo "<script>alert('Role tidak valid');</script>";
-            }
-            exit();
-        }
-        
+            } 
             exit();
         }else{
             echo "<script>alert('email atau password yang anda masukkan salah')</script>";
         }
     }
+}  
 ?>
  
 <!DOCTYPE html>
@@ -61,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <div class="input-group">
                 <button name="submit" class="btn">Login</button>
             </div>
-            <p class="login-register-text">Belum punya akun? <a href="registrasi.php">Daftar</a>.</p>
+            <p class="login-register-text">Buat akun admin <a href="registerAdmin.php">Buat Admin</a>.</p>
             </div>
             </div>
             

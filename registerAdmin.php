@@ -23,7 +23,7 @@
             $result_select = mysqli_query($conn, $select_sql);
 
             if ($result_select && !$result_select->num_rows > 0) {
-                $sql = "INSERT INTO pengguna (username, email, password,role) VALUES ('$username', '$email', '$hashpass','user')";
+                $sql = "INSERT INTO pengguna (username, email, password,role) VALUES ('$username', '$email', '$hashpass','admin')";
                 $result = mysqli_query($conn, $sql);
                 if ($result) {
                     echo "<script>alert('Selamat, pendaftaran berhasil!')</script>";

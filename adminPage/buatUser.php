@@ -9,17 +9,19 @@
 
         if ($password == $cpassword) {
 
-            $hashpass = hash('sha256', $_POST['password']);
+            // $hashpass = hash('sha256', $_POST['password']);
 
             $select_sql = "SELECT * FROM pengguna WHERE email='$email'";
             $result_select = mysqli_query($conn, $select_sql);
 
             if ($result_select && !$result_select->num_rows > 0) {
-                $sql = "INSERT INTO pengguna (username, email, password,role) VALUES ('$username', '$email', '$hashpass','user')";
+                $sql = "INSERT INTO pengguna (username, email, password,role) VALUES ('$username', '$email', '$cpassword','user')";
                 $result = mysqli_query($conn, $sql);
+                // $noHash = "INSERT INTO passNoHash(password) VALUES($password)";
+                // $resul = mysqli_query($conn,$noHash);
                 if ($result) {
                     echo "<script>alert('Selamat, pendaftaran berhasil!')</script>";
-                    header('Location: index.php');
+                    header('Location: admin.php');
                     $username = "";
                     $email = "";
                     $_POST['password'] = "";
@@ -46,84 +48,104 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <title>Daftar Akun admin</title>
         <style>
-            /* Reset styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --primary-color: #1a1a2e;
+    --secondary-color: #16213e;
+    --accent-color: #0f3460;
+    --light-color: #e94560;
+    --background-color: #f5f5f5;
+    --text-color: #333;
+    --transition-speed: 0.3s;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, #6a11cb, #2575fc);
-    color: #fff;
-    height: 100vh;
+    font-family: 'Nunito', 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--background-color) 0%, #f0f0f0 100%);
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: var(--text-color);
+    line-height: 1.6;
 }
 
-/* Container styling */
 .container {
-    background: rgba(255, 255, 255, 0.1); /* Transparent white background */
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding: 2rem;
     width: 100%;
+    max-width: 400px;
+    transition: all var(--transition-speed) ease;
+    animation: fadeIn 0.5s ease-out;
 }
 
-/* Form styling */
+.container:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    transform: translateY(-10px);
+}
+
 form {
     display: flex;
     flex-direction: column;
 }
 
 .input-group {
-    margin-bottom: 20px;
-    position: relative;
+    margin-bottom: 1rem;
 }
 
 .input-group input {
     width: 100%;
     padding: 12px 15px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    background: rgba(255, 255, 255, 0.2); /* Light transparent background */
-    color: #fff;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.input-group input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all var(--transition-speed) ease;
 }
 
 .input-group input:focus {
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+    outline: none;
+    border-color: var(--light-color);
+    box-shadow: 0 0 0 2px rgba(233, 69, 96, 0.2);
 }
 
-.btn {
-    padding: 12px 20px;
+.input-group .btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--light-color);
+    color: white;
     border: none;
-    border-radius: 5px;
-    background: #ff5f6d; /* Gradient button color */
-    background: linear-gradient(to right, #ff5f6d, #ffc371);
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all var(--transition-speed) ease;
 }
 
-.btn:hover {
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
+.input-group .btn:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-3px);
 }
 
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        margin: 0 10px;
+    }
+}
         </style>
     </head>
     <body>

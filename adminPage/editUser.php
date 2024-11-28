@@ -1,45 +1,45 @@
 <?php
-include "../config.php";
+include '../config.php';
 
-$id = $_GET['id'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password']; 
+    $cpassword = $_POST['cpassword']; 
 
-$sql = "SELECT * FROM buku";
-$query = mysqli_query($conn,$sql);
-$result = mysqli_fetch_assoc($query);
+    if ($password == $cpassword) {
 
-if(isset($_POST['update'])){
-    $judul = $_POST['judul'];
-    $penerbit = $_POST['penerbit'];
-    $pengarang = $_POST['pengarang'];
-    $tahun = $_POST['tahun'];
- 
-    $boleh = array("jpg", "png", "jpeg");
-    $picname = $_FILES['cover']['name'];
-    $x = explode('.', $picname);
-    $ekstansi = strtolower(end($x));
-    $size = $_FILES['cover']['size'];
-    $file_temp= $_FILES['cover']['tmp_name'];
+        // $hashpass = hash('sha256', $_POST['password']);
 
-    if(in_array($ekstansi,$boleh) === true){
-        if($size < 1044070){
-           move_uploaded_file($file_temp, '../properti/'.$picname);
-           $sql = "UPDATE buku SET Judul ='$judul', penerbit = '$penerbit', pengarang = '$pengarang', tahun = '$tahun', cover = '$picname'";
-           $query = mysqli_query($conn,$sql);
-           if($query){
-              echo "file berhasil diupdate";
-           }else{
-              echo "gagal diupload";
-           }
-        }else{
-           echo "ukkuran file terlalu besar";
+        $select_sql = "SELECT * FROM pengguna WHERE email='$email'";
+        $result_select = mysqli_query($conn, $select_sql);
+
+        if ($result_select && !$result_select->num_rows > 0) {
+            $sql = "UPDATE pengguna SET username = '$username', email = '$email', password = '$password'";
+            $result = mysqli_query($conn, $sql);
+            // $noHash = "INSERT INTO passNoHash(password) VALUES($password)";
+            // $resul = mysqli_query($conn,$noHash);
+            if ($result) {
+                echo "<script>alert('Selamat, pendaftaran berhasil!')</script>";
+                header('Location: admin.php');
+                $username = "";
+                $email = "";
+                $_POST['password'] = "";
+                $_POST['cpassword'] = "";
+            } else {
+                echo "<script>alert('Maaf, terjadi kesalahan.')</script>";
+            }
+        } else {
+            echo "<script>alert('Ups, email sudah terdaftar.')</script>";
         }
-     }else{
-        echo "ekstensi tidak sesuai";
-     }
-     header("Location: admin.php");
-     
+    } else {
+        echo "<script>alert('Password tidak sesuai.')</script>";
+    }
 }
 
+$sqlPengguna = "SELECT * FROM pengguna";
+$penggunaresult = mysqli_query($conn,$sqlPengguna);
+$resultP = mysqli_fetch_assoc($penggunaresult);
 
 ?>
 
@@ -50,10 +50,9 @@ if(isset($_POST['update'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
     <title>Document</title>
     <style>
-            :root {
+       :root {
     --primary-color: #1a1a2e;
     --secondary-color: #16213e;
     --accent-color: #0f3460;
@@ -180,28 +179,22 @@ form {
     </style>
 </head>
 <body>
-<div class="container mt-3">
-    <form method="post" enctype="multipart/form-data"  class="mb-5">
-        <div class="mb-3">  
-           <input type="text" name="judul" class="form-control" placeholder="Masukkan Judul" value="<?php echo $result['Judul'] ?>" required>
+<div class="container">
+            <form method="post" action="">    
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Username" name="username" value="<?php echo $resultP['username'] ?>" required>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo $resultP['email'] ?>" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" placeholder="Password" name="password" value="<?php echo $resultP['password'] ?>"  required>
+                </div>
+                <button name="submit"  class="btn-primary">Update</button>
+                <div class="mt-3">
+                <a href="admin.php" class="btn btn-primary" >Cencel</a>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-           <input type="text" name="penerbit" class="form-control" placeholder="Penerbit" value="<?php echo $result['penerbit'] ?>" required>
-        </div>
-        <div class="mb-3">
-        <input type="text" name="pengarang" class="form-control" placeholder="pengarang" value="<?php echo $result['pengarang'] ?>" required>
-        </div>
-        <div class="mb-3">
-           <input type="number" name="tahun" class="form-control" placeholder="Tahun" value="<?php echo $result['tahun'] ?>" required>
-        </div>
-        <div class="mb-3">
-           <input type="file" name="cover" id="cover" class="form-control" placeholder="Masukkan cover" value="<?php echo $result['cover'] ?>" required>
-        </div>
-           <input type="submit" class="btn btn-primary"  name="update" value="update" id="update">
-         <div class="mt-3">
-           <a href="admin.php" class="btn btn-primary" >Cencel</a>
-         </div>
-    </form>
-    </div> 
 </body>
 </html>
