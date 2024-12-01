@@ -90,7 +90,8 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
           <th>Penerbit</th>
           <th>Pengarang</th>
           <th>tahun terbit</th>
-          <th></th>
+          <th>tanggal di upload</th>
+           <th>sinopsis</th>
           <th>cover</th>
           <th>action</th>
         </tr>
@@ -108,6 +109,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
         <td><?php echo $select['pengarang']?></td>
         <td><?php echo $select['tahun']?></td>
         <td><?php echo $select['date']?></td>
+        <td><?php echo $select['sinopsis']?></td>
 
         <td>
            <img src="<?php echo "../properti/".$select['cover']; ?>" alt="cover" class="d-flex" height="100px">

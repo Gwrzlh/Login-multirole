@@ -1,0 +1,48 @@
+body {
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+}
+.book-container {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 50px;
+}
+.book-cover {
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.book-details h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.book-details ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.book-details ul li {
+    margin-bottom: 10px;
+    color: #34495e;
+}
+.book-details ul li strong {
+    display: inline-block;
+    width: 120px;
+    color: #2980b9;
+}
+.book-synopsis {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px;
+}
+.book-synopsis h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+.btn{
+    background-color: var(--light-color);
+}

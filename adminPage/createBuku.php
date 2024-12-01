@@ -182,10 +182,13 @@ form {
         <input type="text" name="pengarang" class="form-control" placeholder="pengarang" required>
         </div>
         <div class="mb-3">
+        <input type="textarea" name="sinopsis" class="form-control" placeholder="Masukkan sinopsis" required>
+        </div>
+        <div class="mb-3">
            <input type="number" name="tahun" class="form-control" placeholder="Tahun" required>
         </div>
         <div class="mb-3">
-           <input type="file" name="cover" id="cover" class="form-control" placeholder="Masukkan cover" required>
+           <!-- <input type="file" name="cover" id="cover" class="form-control" placeholder="Masukkan cover" required> -->
         </div>
            <input type="submit" class="btn btn-primary"  name="submit">
     </form>

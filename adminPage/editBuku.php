@@ -3,7 +3,7 @@ include "../config.php";
 
 $id = $_GET['id'];
 
-$sql = "SELECT * FROM buku";
+$sql = "SELECT * FROM buku where id = $id";
 $query = mysqli_query($conn,$sql);
 $result = mysqli_fetch_assoc($query);
 
@@ -12,6 +12,7 @@ if(isset($_POST['update'])){
     $penerbit = $_POST['penerbit'];
     $pengarang = $_POST['pengarang'];
     $tahun = $_POST['tahun'];
+    $nopsis = $_POST['sinopsis'];
  
     $boleh = array("jpg", "png", "jpeg");
     $picname = $_FILES['cover']['name'];
@@ -23,7 +24,7 @@ if(isset($_POST['update'])){
     if(in_array($ekstansi,$boleh) === true){
         if($size < 1044070){
            move_uploaded_file($file_temp, '../properti/'.$picname);
-           $sql = "UPDATE buku SET Judul ='$judul', penerbit = '$penerbit', pengarang = '$pengarang', tahun = '$tahun', cover = '$picname'";
+           $sql = "UPDATE buku SET Judul ='$judul', penerbit = '$penerbit', pengarang = '$pengarang', tahun = '$tahun', cover = '$picname', sinopsis = '$nopsis' WHERE id = $id";
            $query = mysqli_query($conn,$sql);
            if($query){
               echo "file berhasil diupdate";
@@ -51,7 +52,7 @@ if(isset($_POST['update'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <title>Document</title>
+    <title>Edit Buku</title>
     <style>
             :root {
     --primary-color: #1a1a2e;
@@ -193,6 +194,9 @@ form {
         </div>
         <div class="mb-3">
            <input type="number" name="tahun" class="form-control" placeholder="Tahun" value="<?php echo $result['tahun'] ?>" required>
+        </div>
+        <div class="mb-3">
+           <input type="textarea" name="sinopsis" class="form-control" placeholder="sinopsis" value="<?php echo $result['sinopsis'] ?>" required>
         </div>
         <div class="mb-3">
            <input type="file" name="cover" id="cover" class="form-control" placeholder="Masukkan cover" value="<?php echo $result['cover'] ?>" required>
