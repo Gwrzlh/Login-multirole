@@ -13,7 +13,7 @@
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password']; 
-        $cpassword = $_POST['cpassword']; 
+        $cpassword = $_POST['password'];  
 
         if ($password == $cpassword) {
 

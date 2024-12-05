@@ -2,9 +2,14 @@
 include 'config.php';
 session_start();
 
-if (isset($_SESSION['username'])) {
-    header("Location: index.php");
-    exit();
+if (isset($_SESSION['username'])) { 
+    if ($_SESSION['role'] === 'admin') {
+        header("Location: admin.php");
+        exit();
+    } elseif ($_SESSION['role'] === 'user') {
+        header("Location: berhasil.php");
+        exit();
+    }
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = $_POST['email'];
@@ -24,6 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 header("Location: adminPage/admin.php");
             } else if ($_SESSION['role'] === 'user') {
                 header("Location: userPage/berhasil.php");
+            }else if ($_SESSION['role'] === 'owner') {
+                header("Location: owner/owner.php");
             } else {
                 echo "<script>alert('Role tidak valid');</script>";
             } 

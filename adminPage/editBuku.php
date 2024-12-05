@@ -203,7 +203,7 @@ form {
         </div>
            <input type="submit" class="btn btn-primary"  name="update" value="update" id="update">
          <div class="mt-3">
-           <a href="admin.php" class="btn btn-primary" >Cencel</a>
+           <a href="javascript:history.back()" class="btn btn-primary" >Cencel</a>
          </div>
     </form>
     </div> 

@@ -5,9 +5,12 @@ session_start();
 $sql = "SELECT * FROM buku";
 $query = mysqli_query($conn,$sql);
 
+$sqlTerbaru = "SELECT * FROM buku ORDER BY date LIMIT 5";
+$queryTerbaru = mysqli_query($conn,$sqlTerbaru);
+
  
 if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
-    header("Location: ../adminPage/admin.php"); // Redirect ke halaman login jika role bukan 'user'
+    header("Location: ../index.php"); // Redirect ke halaman login jika role bukan 'user'
     exit();
 }
 
@@ -21,13 +24,14 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/styleBerhasil.css">
+    <link rel="stylesheet" href="styleBerhasil.css">
     <title>Welcome</title>
    <style>
      
    </style>
 </head>
 <body>
+    <div class="st">
     <nav>
         <a href="#" class="navbar-brand" onclick="openSidebar()"> <?php echo $_SESSION['username'] ?></a>
                 <ul>
@@ -35,8 +39,9 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
                     <li class="underline-hover m-3"><a href="#x">Popular</a></li>
                     <li class="underline-hover m-3"><a href="#">Terbaru</a></li>
                 </ul>
-            </div>
         </nav>
+    </div>
+   
     <div class="sidebar" id="sidebar">
         <button class="close-btn" onclick="closeSidebar()"> < </button>
     <form action="../logout.php" method="post" class="text-center m-5">
@@ -46,7 +51,9 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
     <div class="container text-center">
         <h1 class="mt-5 mb-5">WELCOME TO LIBRARY</h1>
     </div>
-    <div class="d-flex">
+
+    <!-- Buku terbaruu -->
+    <div class="d-flex flex-wrap">
          <?php 
             while($result = mysqli_fetch_assoc($query)){
             ?>
@@ -63,7 +70,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
                 }
                 ?>
             </div>
-            <script>
+    <script>
         
         function openSidebar() {
             document.getElementById("sidebar").classList.add("active");

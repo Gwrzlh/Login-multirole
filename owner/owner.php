@@ -1,5 +1,6 @@
 <?php
-include "../config.php";   
+require "../config.php";
+
 session_start();
 
 $batas = 5;
@@ -25,26 +26,23 @@ $jumlah_dataPengguna = mysqli_num_rows($dataPengguna);
 $total_halamanPengguna = ceil($jumlah_dataPengguna / $batas);
 
 
-$sqlPengguna = "SELECT * FROM pengguna where role = 'user' LIMIT $halaman_awalPengguna,$batas  ";
+$sqlPengguna = "SELECT * FROM pengguna where role = 'user' or role = 'admin' LIMIT $halaman_awalPengguna,$batas  ";
 $queryPengguna = mysqli_query($conn,$sqlPengguna) ;
 
 // $sqlpassNoHash = "SELECT * FROM passNoHash LIMIT $halaman_awal,$batas";
 // $queryNohash = mysqli_query($conn,$sqlpassNoHash);
 
+$sql = "SELECT * FROM buku";
+$query = mysqli_query($conn,"select * from buku limit $halaman_awal, $batas");
 
-$sql = "SELECT * FROM buku LIMIT $halaman_awal, $batas";
-$query = mysqli_query($conn,$sql);
-
-
- 
-if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
-    header("Location: ../userPage/berhasil.php");
-    exit();
+if (!isset($_SESSION['username']) || $_SESSION['role'] != 'owner') {
+  header("Location: ../index.php");
+  exit();
 }
 
 
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,14 +60,14 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
         <a href="#" class="navbar-brand" onclick="openSidebar()"> <?php echo $_SESSION['username'] ?></a>
       
      <div class="div" class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <!-- <ul class="navbar-nav">
             <li class="nav-item">
                 <a href="createBuku.php" class="nav-link">Create Buku</a>
             </li>
           <li class="nav-item">
           <a href="buatUser.php" class="nav-link">Akun User</a>
           </li>
-        </ul>
+        </ul> -->
      </div>
     </div>
 </nav>
@@ -115,8 +113,8 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
            <img src="<?php echo "../properti/".$select['cover']; ?>" alt="cover" class="d-flex" height="100px">
         </td>
         <td class="text-center">
-            <a href="deletebuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Hapus</a>
-           <a href="editBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
+            <a href="../adminPage/deletebuku.php?id=<? echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Hapus</a>
+           <a href="../adminpage/editBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
         </td>
        </tr>
        <?php 
@@ -164,8 +162,8 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
         <td><?php echo $pengguna['role']?></td>
        <td><?php echo $pengguna['password'] ?></td>
        <td>
-       <a href="deleteUser.php?id=<?php echo $pengguna['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Hapus</a>
-       <a href="editUser.php?id=<?php echo $pengguna['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
+       <a href="../adminPage/deleteUser.php?id=<? echo $pengguna['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Hapus</a>
+       <a href="../adminPage/editUser.php?id=<? echo $pengguna['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
        </td>
        </tr>
        <?php 
@@ -176,7 +174,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
   <nav>
 	<ul class="pagination justify-content-center">
 			<li class="page-item">
-					<a class="page-link" <?php if($halaman > 1){ echo "href='?tablePengguna=$previous'"; } ?>>Previous</a>
+					<a class="page-link" <?php if($halaman > 1){ echo "href='?tablePengguna=$Previous'"; } ?>>Previous</a>
 				</li>
 				<?php 
 				for($x=1;$x<=$total_halamanPengguna;$x++){
@@ -226,5 +224,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
         });
     </script>
 
+</body>
+</html>
 </body>
 </html>

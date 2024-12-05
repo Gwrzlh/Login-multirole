@@ -1,6 +1,8 @@
 <?php
 include '../config.php';
 
+$id = $_GET['id'];
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -11,11 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // $hashpass = hash('sha256', $_POST['password']);
 
-        $select_sql = "SELECT * FROM pengguna WHERE email='$email'";
+        $select_sql = "SELECT * FROM pengguna WHERE email='$email' where id = $id";
         $result_select = mysqli_query($conn, $select_sql);
 
         if ($result_select && !$result_select->num_rows > 0) {
-            $sql = "UPDATE pengguna SET username = '$username', email = '$email', password = '$password'";
+            $sql = "UPDATE pengguna SET username = '$username', email = '$email', password = '$password' where id = $id";
             $result = mysqli_query($conn, $sql);
             // $noHash = "INSERT INTO passNoHash(password) VALUES($password)";
             // $resul = mysqli_query($conn,$noHash);
@@ -37,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-$sqlPengguna = "SELECT * FROM pengguna";
+$sqlPengguna = "SELECT * FROM pengguna where id = $id";
 $penggunaresult = mysqli_query($conn,$sqlPengguna);
 $resultP = mysqli_fetch_assoc($penggunaresult);
 

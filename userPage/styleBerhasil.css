@@ -20,12 +20,14 @@ body {
 /* Navigation Styles */
 nav {
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-    color: white;
+    color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
 }
 
 nav .navbar-brand {
@@ -33,6 +35,7 @@ nav .navbar-brand {
     font-weight: 700;
     text-decoration: none;
     font-size: 1.2em;
+    
 }
 
 nav ul {
