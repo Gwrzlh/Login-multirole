@@ -4,10 +4,10 @@ session_start();
 
 if (isset($_SESSION['username'])) { 
     if ($_SESSION['role'] === 'admin') {
-        header("Location: admin.php");
+        header("Location: adminPage/admin.php");
         exit();
     } elseif ($_SESSION['role'] === 'user') {
-        header("Location: berhasil.php");
+        header("Location: userPage/berhasil.php");
         exit();
     }
 }
@@ -25,11 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
 
-        if ($_SESSION['role'] === 'admin') {
+        if ($row['role'] === 'admin') {
                 header("Location: adminPage/admin.php");
-            } else if ($_SESSION['role'] === 'user') {
+            } else if ($row['role'] === 'user') {
                 header("Location: userPage/berhasil.php");
-            }else if ($_SESSION['role'] === 'owner') {
+            }else if ($row['role'] === 'owner') {
                 header("Location: owner/owner.php");
             } else {
                 echo "<script>alert('Role tidak valid');</script>";

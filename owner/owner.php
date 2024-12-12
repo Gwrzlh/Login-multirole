@@ -91,7 +91,6 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'owner') {
           <th>tanggal di upload</th>
            <th>sinopsis</th>
           <th>cover</th>
-          <th>action</th>
         </tr>
     </thead>
     <tbody>
@@ -112,10 +111,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'owner') {
         <td>
            <img src="<?php echo "../properti/".$select['cover']; ?>" alt="cover" class="d-flex" height="100px">
         </td>
-        <td class="text-center">
-            <a href="../adminPage/deletebuku.php?id=<? echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Hapus</a>
-           <a href="../adminpage/editBuku.php?id=<?php echo $select['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
-        </td>
+      
        </tr>
        <?php 
     }  
@@ -150,7 +146,6 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'owner') {
            <th>Email</th>
            <th>Role</th>
            <th>password</th>
-           <th>action</th>
         </tr>
         <?php 
           while($pengguna = mysqli_fetch_assoc($queryPengguna)){
@@ -161,10 +156,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'owner') {
         <td><?php echo $pengguna['email']?></td>
         <td><?php echo $pengguna['role']?></td>
        <td><?php echo $pengguna['password'] ?></td>
-       <td>
-       <a href="../adminPage/deleteUser.php?id=<? echo $pengguna['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Hapus</a>
-       <a href="../adminPage/editUser.php?id=<? echo $pengguna['id']; ?>" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
-       </td>
+      
        </tr>
        <?php 
           }

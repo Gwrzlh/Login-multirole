@@ -1,12 +1,10 @@
 <?php
 include "../config.php";   
 session_start();
-
 $batas = 5;
 
 $halaman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
 $halaman_awal = ($halaman > 1) ? ($halaman * $batas) - $batas : 0;	
-
 
 $previous = $halaman - 1;
 $next = $halaman + 1;
@@ -20,7 +18,7 @@ $total_halaman = ceil($jumlah_data / $batas);
 $halamanPengguna = isset($_GET['tablePengguna']) ? (int)$_GET['tablePengguna'] : 1;
 $halaman_awalPengguna = ($halamanPengguna > 1) ? ($halamanPengguna * $batas) - $batas : 0;	
 
-$dataPengguna = mysqli_query($conn,"SELECT *FROM pengguna ");
+$dataPengguna = mysqli_query($conn,"SELECT *FROM pengguna where role = 'user' ");
 $jumlah_dataPengguna = mysqli_num_rows($dataPengguna);
 $total_halamanPengguna = ceil($jumlah_dataPengguna / $batas);
 

@@ -8,6 +8,7 @@ if(isset($_POST['submit'])){
    $penerbit = $_POST['penerbit'];
    $pengarang = $_POST['pengarang'];
    $tahun = $_POST['tahun'];
+   $sin = $_POST['sinopsis'];
 
    $boleh = array("jpg", "png", "jpeg");
    $picname = $_FILES['cover']['name'];
@@ -19,7 +20,7 @@ if(isset($_POST['submit'])){
 if(in_array($ekstansi,$boleh) === true){
    if($size < 1044070){
       move_uploaded_file($file_temp, '../properti/'.$picname);
-      $sql = "INSERT INTO buku(judul,penerbit,pengarang,tahun,cover) VALUES('$judul','$penerbit','$pengarang','$tahun','$picname')";
+      $sql = "INSERT INTO buku (Judul,penerbit,pengarang,tahun,cover,sinopsis) VALUES('$judul','$penerbit','$pengarang','$tahun','$picname','$sin')";
       $query = mysqli_query($conn,$sql);
       if($query){
          echo "file berhasil diupload";
@@ -34,6 +35,7 @@ if(in_array($ekstansi,$boleh) === true){
 }
 header("Location: admin.php");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -188,7 +190,7 @@ form {
            <input type="number" name="tahun" class="form-control" placeholder="Tahun" required>
         </div>
         <div class="mb-3">
-           <!-- <input type="file" name="cover" id="cover" class="form-control" placeholder="Masukkan cover" required> -->
+           <input type="file" name="cover" id="cover" class="form-control" placeholder="Masukkan cover" required>
         </div>
            <input type="submit" class="btn btn-primary"  name="submit">
     </form>
